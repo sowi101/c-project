@@ -30,6 +30,13 @@ namespace Quiz_A_Lot
             return index;
         }
 
+        public int EditQuestion(Question editedQuestion, int index)
+        {
+            questions[index] = editedQuestion;
+
+            return index;
+        }
+
         // Method that return an array of all questions
         public List<Question> GetQuestions()
         {
@@ -44,18 +51,31 @@ namespace Quiz_A_Lot
             return topscore;
         }
 
-        // Method that delete a specific topscore
-        public int DeleteTopScore(int index)
+        // Method that delete the topscores for a quiz
+        public void DeleteTopScores()
         {
             // Deletes the topscore with the specific index
-            topScores.RemoveAt(index);
-            return index;
+            topScores.Clear();
+            Console.WriteLine("Alla resultat för quizet har raderats");
         }
 
         // Method that return an array of all topscores
         public List<TopScore> GetTopScores()
         {
             return topScores;
+        }
+
+        public void PrintTopScores(Quiz quiz)
+        {
+            Console.WriteLine(quiz.Title?.ToUpper());
+
+            quiz.topScores.Sort((ts1, ts2) => ts2.Score.CompareTo(ts1.Score));
+
+            foreach (TopScore topScore in quiz.topScores)
+            {
+                // Printing name of quiz and amount of questions
+                Console.WriteLine(topScore.Name + " " + topScore.Score);
+            }
         }
     }
 }

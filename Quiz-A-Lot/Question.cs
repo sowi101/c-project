@@ -27,6 +27,13 @@ namespace Quiz_A_Lot
             return index;
         }
 
+        public int EditAnswer(Answer editedAnswer, int index)
+        {
+            answers[index] = editedAnswer;
+
+            return index;
+        }
+
         // Method that return an array of all questions
         public List<Answer> GetAnswers()
         {
