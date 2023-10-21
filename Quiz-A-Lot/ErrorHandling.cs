@@ -54,7 +54,7 @@ namespace Quiz_A_Lot
 
             if (amount > 1)
             {
-                quizOptionRegex = new Regex(@"^[1-amount]$");
+                quizOptionRegex = new Regex(@"^[1-" + amount + "]$");
             }
 
             // While loop that runs as long the format of the variable is incorrect
@@ -86,7 +86,7 @@ namespace Quiz_A_Lot
 
         public string YesOrNoOptionErrorCheck(string inputCharacter)
         {
-            Regex YesOrNoOptionRegex = new Regex(@"^(J | j | N | n)$");
+            Regex YesOrNoOptionRegex = new Regex(@"[JjNn]");
 
             // While loop that runs as long the format of the variable is incorrect
             while (!YesOrNoOptionRegex.IsMatch(inputCharacter))
