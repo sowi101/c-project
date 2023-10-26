@@ -70,11 +70,17 @@ namespace Quiz_A_Lot
         {
             var q = 1;
 
+            Console.WriteLine("══════════════════════════════");
+
             foreach (Quiz quiz in allQuizzes)
             {
                 // Printing name of quiz and amount of questions
-                Console.WriteLine("[" + q++ + "] " + quiz.Title + " (" + quiz.questions.Count() + " frågor)");
+                
+                Console.WriteLine(" [" + q++ + "] " + quiz.Title.ToUpper() + " (" + quiz.questions.Count() + " FRÅGOR)");
+                
             }
+
+            Console.WriteLine("══════════════════════════════");
         }
     }
 }

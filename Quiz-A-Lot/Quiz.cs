@@ -67,15 +67,25 @@ namespace Quiz_A_Lot
 
         public void PrintTopScores(Quiz quiz)
         {
+            Console.WriteLine("══════════════════════════════");
             Console.WriteLine(quiz.Title?.ToUpper());
+            Console.WriteLine("══════════════════════════════");
 
             quiz.topScores.Sort((ts1, ts2) => ts2.Score.CompareTo(ts1.Score));
 
+            // Print information about quizzes
+            if (quiz.topScores.Count < 1)
+            {
+                Console.WriteLine("INGA SPARADE RESULTAT.");
+            }
+
             foreach (TopScore topScore in quiz.topScores)
             {
+
                 // Printing name of quiz and amount of questions
                 Console.WriteLine(topScore.Name + " " + topScore.Score);
             }
+            Console.WriteLine("══════════════════════════════\n");
         }
     }
 }
