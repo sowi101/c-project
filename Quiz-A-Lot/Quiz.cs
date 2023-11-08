@@ -56,7 +56,6 @@ namespace Quiz_A_Lot
         {
             // Deletes the topscore with the specific index
             topScores.Clear();
-            Console.WriteLine("Alla resultat för quizet har raderats");
         }
 
         // Method that return an array of all topscores

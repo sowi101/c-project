@@ -14,33 +14,33 @@ namespace Quiz_A_Lot
                 if (typeOfText == "title")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har inte angett någon titel.");
+                    Console.WriteLine("DU HAR INTE ANGETT NÅGON TITEL.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Titel på quiz: ");
+                    Console.Write("TITEL: ");
                     textInput = Console.ReadLine();
                 }
                 else if (typeOfText == "question")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har inte angett någon fråga.");
+                    Console.WriteLine("Du HAR INTE ANGETT NÅGON FRÅGA.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Fråga " + num + ": ");
+                    Console.Write("FRÅGA " + num + ": ");
                     textInput = Console.ReadLine();
                 }
                 else if (typeOfText == "answer")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har inte angett något svar.");
+                    Console.WriteLine("Du HAR INTE ANGETT NÅGOT SVAR.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Svar " + num + ": ");
+                    Console.Write("SVAR " + num + ": ");
                     textInput = Console.ReadLine();
                 } 
                 else if(typeOfText == "name")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har inte angett något namn.");
+                    Console.WriteLine("DU HAR INTE ANGETT NÅGOT NAMN.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Namn: ");
+                    Console.Write("NAMN: ");
                     textInput = Console.ReadLine();
                 }      
             }
@@ -65,18 +65,18 @@ namespace Quiz_A_Lot
                 {
                     // Printing of error message and asking for new input
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har gjort inte angett något val!");
+                    Console.WriteLine("DU HAR INTE ANGETT NÅGOT ALTERNATIV.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Ange ditt val: ");
+                    Console.Write("ANGE DITT VAL: ");
                     option = Console.ReadLine();
                 }
                 else
                 {
                     // Printing of error message and asking for new input
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har angett ett val som inte finns!");
+                    Console.WriteLine("DU HAR ANGETT ETT ALTERNATIV SOM INTE FINNS.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Ange ditt val: ");
+                    Console.Write("ANGE DITT VAL: ");
                     option = Console.ReadLine();
                 }
             }
@@ -86,7 +86,7 @@ namespace Quiz_A_Lot
 
         public string YesOrNoOptionErrorCheck(string inputCharacter)
         {
-            Regex YesOrNoOptionRegex = new Regex(@"[JjNn]");
+            Regex YesOrNoOptionRegex = new(@"^[JjNn]{1}$");
 
             // While loop that runs as long the format of the variable is incorrect
             while (!YesOrNoOptionRegex.IsMatch(inputCharacter))
@@ -96,18 +96,18 @@ namespace Quiz_A_Lot
                 {
                     // Printing of error message and asking for new input
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har gjort inte angett något val!");
+                    Console.WriteLine("DU HAR INTE ANGETT NÅGOT ALTERNATIV.\n ");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Ange ditt val: ");
+                    Console.Write("ANGE DITT VAL: ");
                     inputCharacter = Console.ReadLine();
                 }
                 else
                 {
                     // Printing of error message and asking for new input
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Du har angett ett inkorrekt val!");
+                    Console.WriteLine("DU HAR ANGETT ETT ALTERNATIV SOM INTE FINNS.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("Ange ditt val: ");
+                    Console.Write("ANGE DITT VAL: ");
                     inputCharacter = Console.ReadLine();
                 }
             }

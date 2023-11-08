@@ -62,7 +62,6 @@ internal class Program
                     // Print information about quizzes
                     if (allQuizzes.Count < 1)
                     {
-                        Console.WriteLine("══════════════════════════════");
                         Console.WriteLine("DET FINNS INGA SPARADE QUIZ.\n");
                         Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
 
@@ -90,7 +89,7 @@ internal class Program
 
                     Console.Clear();
                     Console.WriteLine("══════════════════════════════");
-                    Console.WriteLine(chosenQuiz.Title);
+                    Console.WriteLine(chosenQuiz.Title.ToUpper());
                     Console.WriteLine("══════════════════════════════\n");
 
                     int score = 0;
@@ -101,7 +100,7 @@ internal class Program
                     {
                         Console.WriteLine("══════════════════════════════");
                         Console.WriteLine("FRÅGA " + q + ": " + question.Text.ToUpper());
-                        Console.WriteLine("══════════════════════════════");
+                        Console.WriteLine();
 
                         int a = 1;
 
@@ -121,6 +120,7 @@ internal class Program
                             score++;
                         }
                         Console.WriteLine();
+                        q++;
                     }
                     Console.WriteLine("══════════════════════════════");
                     Console.WriteLine("DU FICK " + score + " POÄNG!\n");
@@ -208,9 +208,10 @@ internal class Program
                             while (numberOfQuestions < 1)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("QUIZET MÅSTE INNEHÅLLA MINST 1 FRÅGA.");
-                                numberOfQuestions = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("QUIZET MÅSTE INNEHÅLLA MINST 1 FRÅGA.\n");
                                 Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write("ANTAL FRÅGOR I QUIZET: ");
+                                numberOfQuestions = Convert.ToInt32(Console.ReadLine());
                             }
 
                             for (q = 1; q <= numberOfQuestions; q++)
@@ -327,15 +328,16 @@ internal class Program
                             int validEditQuizOption = errorHandling.MenuOptionErrorCheck(editQuizOption, allQuizzes.Count) - 1;
 
                             var chosenQuizToEdit = allQuizzes[validEditQuizOption];
-                            Console.WriteLine("VAD VILL DU GÖRA?");
+                            Console.WriteLine("\nVAD VILL DU GÖRA?");
 
                             Console.WriteLine("╔═══════════════════════════════╗");
                             Console.WriteLine("║ [1] ÄNDRA TITEL               ║");
                             Console.WriteLine("║ [2] ÄNDRA ELLER RADERA FRÅGOR ║");
                             Console.WriteLine("║ [3] RADERA TOPPLISTA          ║");
-                            Console.WriteLine("║ [4] HUVUDMENY                 ║"); // Kommer jag till huvudmeny
+                            Console.WriteLine("║ [4] HUVUDMENY                 ║");
                             Console.WriteLine("╚═══════════════════════════════╝\n");
 
+                            Console.Write("ANGE DITT VAL: ");
                             string editOption = Console.ReadLine();
 
                             int validEditOption = errorHandling.MenuOptionErrorCheck(editOption, 4);
@@ -376,22 +378,24 @@ internal class Program
                                     Console.WriteLine("║ ÄNDRA ELLER TA BORT FRÅGA ║");
                                     Console.WriteLine("╚═══════════════════════════╝\n");
 
-                                    Console.WriteLine("VILKEN FRÅGA VILL DU ÄNDRA ELLER TA BORT?");
+                                    Console.WriteLine("VILKEN FRÅGA VILL DU ÄNDRA ELLER TA BORT?\n");
                                     q = 1;
                                     foreach (var question in chosenQuizToEdit.questions)
                                     {
-                                        Console.WriteLine("[" + q++ + "]" + question.Text);
+                                        Console.WriteLine("[" + q++ + "] " + question.Text.ToUpper());
                                     }
 
+                                    Console.Write("\nANGE DITT VAL: ");
                                     string questionToEdit = Console.ReadLine();
                                     int validQuestionToEdit = errorHandling.MenuOptionErrorCheck(questionToEdit, chosenQuizToEdit.questions.Count);
 
-                                    Console.WriteLine("╔══════════════════╗");
+                                    Console.WriteLine("\n╔══════════════════╗");
                                     Console.WriteLine("║ [1] ÄNDRA TEXT   ║");
                                     Console.WriteLine("║ [2] ÄNDRA SVAR   ║");
                                     Console.WriteLine("║ [3] RADERA FRÅGA ║");
                                     Console.WriteLine("╚══════════════════╝\n");
 
+                                    Console.WriteLine("ANGE DITT VAL: "); 
                                     string manageEditOfQuestion = Console.ReadLine();
                                     int validManageEditOfQuestion = errorHandling.MenuOptionErrorCheck(manageEditOfQuestion, 3);
 
@@ -406,8 +410,9 @@ internal class Program
 
                                             Console.WriteLine("ANGE ÄNDRING: ");
                                             string newQuestion = Console.ReadLine();
+                                            string validNewQuestion = errorHandling.TextErrorCheck(newQuestion, "question");
 
-                                            chosenQuizToEdit.questions[validQuestionToEdit-1].Text = newQuestion;
+                                            chosenQuizToEdit.questions[validQuestionToEdit-1].Text = validNewQuestion;
                                             quizApp.ChangeQuiz();
 
                                             Console.WriteLine("\n══════════════════════════════");
@@ -431,7 +436,7 @@ internal class Program
                                             int a = 1;
                                             foreach (var answer in chosenQuizToEdit.questions[validQuestionToEdit-1].answers)
                                             {
-                                                Console.WriteLine("[" + a++ + "]" + answer.Text);
+                                                Console.WriteLine("[" + a++ + "] " + answer.Text);
                                             }
 
                                             string answerToEdit = Console.ReadLine();
@@ -488,7 +493,7 @@ internal class Program
                                                     chosenQuizToEdit.questions[validQuestionToEdit - 1].answers[validAnswerToEdit - 1].IsCorrect = true;
 
                                                     quizApp.ChangeQuiz();
-                                                    Console.Write("SVAR PÅ FRÅGA " + validQuestionToEdit + " ÄNDRAD!");
+                                                    Console.WriteLine("SVAR PÅ FRÅGA " + validQuestionToEdit + " ÄNDRAD!");
                                                     Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
                                                     Console.ReadKey();
 
@@ -525,7 +530,7 @@ internal class Program
                                                     }
 
                                                     quizApp.ChangeQuiz();
-                                                    Console.Write("SVAR " + validAnswerToEdit + " PÅ FRÅGA " + validQuestionToEdit + " ÄNDRAD!");
+                                                    Console.WriteLine("SVAR PÅ FRÅGA " + validQuestionToEdit + " ÄNDRAD!");
                                                     Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
                                                     Console.ReadKey();
 
@@ -552,6 +557,7 @@ internal class Program
                                             if (validControlAnswerDeleteQuestion.Equals("J", StringComparison.OrdinalIgnoreCase))
                                             {
                                                 chosenQuizToEdit.DeleteQuestion(validQuestionToEdit - 1);
+                                                quizApp.ChangeQuiz();
                                                 Console.WriteLine("FRÅGA RADERAD!\n");
                                                 Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
                                                 Console.ReadKey();
@@ -585,7 +591,7 @@ internal class Program
                                     Console.WriteLine("╚══════════════════╝\n");
 
                                     // Control question
-                                    Console.WriteLine("ÄR DU SÄKER PÅ ATT DU VILL RADERA TOPPLISTAN FÖR " + chosenQuizToEdit.Title + "?");
+                                    Console.WriteLine("ÄR DU SÄKER PÅ ATT DU VILL RADERA TOPPLISTAN FÖR " + chosenQuizToEdit.Title.ToUpper() + "?");
                                     string controlAnswerTopScore = Console.ReadLine();
 
                                     string validControlAnswerTopScore = errorHandling.YesOrNoOptionErrorCheck(controlAnswerTopScore);
@@ -640,14 +646,14 @@ internal class Program
                             int validRemoveQuizOption = errorHandling.MenuOptionErrorCheck(removeQuizOption, allQuizzes.Count);
 
                             // Control question
-                            Console.WriteLine("ÄR DU SÄKER PÅ ATT DU VILL RADERA " + allQuizzes[validRemoveQuizOption - 1].Title + "?");
+                            Console.WriteLine("ÄR DU SÄKER PÅ ATT DU VILL RADERA " + allQuizzes[validRemoveQuizOption - 1].Title.ToUpper() + "?");
                             string controlAnswer = Console.ReadLine();
 
                             string validControlAnswer = errorHandling.YesOrNoOptionErrorCheck(controlAnswer);
 
                             if (validControlAnswer.Equals("J", StringComparison.OrdinalIgnoreCase))
                             {
-                                quizApp.DeleteQuiz(validRemoveQuizOption);
+                                quizApp.DeleteQuiz(validRemoveQuizOption-1);
                                 Console.WriteLine("QUIZ RADERAT!");
                                 Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
                                 Console.ReadKey();
