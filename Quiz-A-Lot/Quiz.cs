@@ -37,12 +37,6 @@ namespace Quiz_A_Lot
             return index;
         }
 
-        // Method that return an array of all questions
-        public List<Question> GetQuestions()
-        {
-            return questions;
-        }
-
         // Method to add a top score
         public TopScore AddTopScore(TopScore topscore)
         {
@@ -58,31 +52,26 @@ namespace Quiz_A_Lot
             topScores.Clear();
         }
 
-        // Method that return an array of all topscores
-        public List<TopScore> GetTopScores()
-        {
-            return topScores;
-        }
-
         public void PrintTopScores(Quiz quiz)
         {
             Console.WriteLine("══════════════════════════════");
             Console.WriteLine(quiz.Title?.ToUpper());
             Console.WriteLine("══════════════════════════════");
 
-            quiz.topScores.Sort((ts1, ts2) => ts2.Score.CompareTo(ts1.Score));
 
             // Print information about quizzes
             if (quiz.topScores.Count < 1)
             {
-                Console.WriteLine("INGA SPARADE RESULTAT.");
+                Console.WriteLine("Inga sparade resultat.");
             }
+
+            quiz.topScores.Sort((ts1, ts2) => ts2.Score.CompareTo(ts1.Score));
 
             foreach (TopScore topScore in quiz.topScores)
             {
 
                 // Printing name of quiz and amount of questions
-                Console.WriteLine(topScore.Name + " " + topScore.Score);
+                Console.WriteLine(topScore.Name + " " + topScore.Score + " poäng");
             }
             Console.WriteLine("══════════════════════════════\n");
         }

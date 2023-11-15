@@ -27,6 +27,15 @@ namespace Quiz_A_Lot
             }
         }
 
+        // Method that writes quizzes to JSON file
+        private void WriteToFile()
+        {
+            // Converts array of objects to JSON
+            var jsonString = JsonConvert.SerializeObject(quizzes, Newtonsoft.Json.Formatting.Indented);
+            // Write data to JSON file
+            File.WriteAllText(jsonFile, jsonString);
+        }
+
         // Method to add a quiz
         public void AddQuiz(Quiz quiz)
         {
@@ -36,6 +45,7 @@ namespace Quiz_A_Lot
             WriteToFile();
         }
 
+        // Method that saves changes
         public void ChangeQuiz() { 
             WriteToFile();
         }
@@ -57,15 +67,6 @@ namespace Quiz_A_Lot
             return quizzes;
         }
 
-        // Method that writes quizzes to JSON file
-        private void WriteToFile()
-        {
-            // Converts array of objects to JSON
-            var jsonString = JsonConvert.SerializeObject(quizzes, Newtonsoft.Json.Formatting.Indented);
-            // Write data to JSON file
-            File.WriteAllText(jsonFile, jsonString);
-        }
-
         public void PrintQuizzes(List<Quiz> allQuizzes)
         {
             var q = 1;
@@ -82,6 +83,7 @@ namespace Quiz_A_Lot
 
             Console.WriteLine("══════════════════════════════");
         }
+
     }
 }
 

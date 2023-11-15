@@ -16,7 +16,7 @@ namespace Quiz_A_Lot
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("DU HAR INTE ANGETT NÅGON TITEL.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("TITEL: ");
+                    Console.Write("TITEL PÅ QUIZ: ");
                     textInput = Console.ReadLine();
                 }
                 else if (typeOfText == "question")
@@ -48,7 +48,7 @@ namespace Quiz_A_Lot
             return textInput;
         }
 
-        public int MenuOptionErrorCheck(string option, int amount)
+        public int OptionErrorCheck(string option, int amount)
         {
             Regex quizOptionRegex = new Regex(@"^1$");
 
@@ -84,7 +84,7 @@ namespace Quiz_A_Lot
             return Convert.ToInt32(option);
         }
 
-        public string YesOrNoOptionErrorCheck(string inputCharacter)
+        public string YesOrNoErrorCheck(string inputCharacter, string typeOfUse)
         {
             Regex YesOrNoOptionRegex = new(@"^[JjNn]{1}$");
 
@@ -98,7 +98,14 @@ namespace Quiz_A_Lot
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("DU HAR INTE ANGETT NÅGOT ALTERNATIV.\n ");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("ANGE DITT VAL: ");
+                    if(typeOfUse == "correctAnswer")
+                    {
+                        Console.Write("ÄR SVARET RÄTT? TRYCK J FÖR JA OCH N FÖR NEJ.");
+                    } else if (typeOfUse == "controlAnswer")
+                    {
+                        Console.Write("ÄR DU SÄKER PÅ ATT DU VILL RADERA? TRYCK J FÖR JA OCH N FÖR NEJ.");
+                    }
+                    
                     inputCharacter = Console.ReadLine();
                 }
                 else
@@ -107,7 +114,14 @@ namespace Quiz_A_Lot
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("DU HAR ANGETT ETT ALTERNATIV SOM INTE FINNS.\n");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write("ANGE DITT VAL: ");
+                    if (typeOfUse == "correctAnswer")
+                    {
+                        Console.Write("ÄR SVARET RÄTT? TRYCK J FÖR JA OCH N FÖR NEJ.");
+                    }
+                    else if (typeOfUse == "controlAnswer")
+                    {
+                        Console.Write("ÄR DU SÄKER PÅ ATT DU VILL RADERA? TRYCK J FÖR JA OCH N FÖR NEJ.");
+                    }
                     inputCharacter = Console.ReadLine();
                 }
             }

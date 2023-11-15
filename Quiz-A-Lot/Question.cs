@@ -34,10 +34,5 @@ namespace Quiz_A_Lot
             return index;
         }
 
-        // Method that return an array of all questions
-        public List<Answer> GetAnswers()
-        {
-            return answers;
-        }
     }
 }
