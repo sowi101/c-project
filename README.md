@@ -27,9 +27,9 @@ Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med l
 
 ### ErrorHandling ###
 #### Metoder ####
-- TextErrorCheck(string, string, int) : string
-- OptionErrorCheck(string, int) : int
-- YesOrNoErrorCheck(string, string) : string
+- TextErrorCheck tar två string-argument och ett frivilligt int-argument och returnerar en string. Metoden har till uppgift att säkerställa att ingen inmatning för text lämnas tom.
+- OptionErrorCheck tar ett string-argument och ett int-argument och returnerar en int. Metoden har till uppgift att säkerställa att inmatning för sifferval inte lämnas tom samt att inmatat värde existerar.
+- YesOrNoErrorCheck tar två string-argument och returnerar en string. Metoden har till uppgift att säkerställa att inmatning vid bestämning av korrekt svar samt säkerhetsfråga vid radering inte lämnas tom samt att det enbart är giltiga tecken som matas in.
 
 
 ## Om repositoriet
