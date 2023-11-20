@@ -15,15 +15,22 @@ Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med l
 
 ### Question ###
 #### Fält ####
+- Text: string
+- Answers: List
 #### Metoder ####
+- AddAnswer tar ett object som argumenterar och returnerar även objektet. Metoden har till uppgift lägger till svar i listan för svar.
+- EditAnswer tar ett object och en int som argument och returnerar en int. Metoden har till uppgift byta ut det ändrade objektet i listan för svar.
+- DeleteAnswer tar en int som argument och returnerar en int. Metoden har till uppgift att ta bort ett object från listan för svar.
 
 ### Answer ###
 #### Fält ####
-#### Metoder ####
+- Text: string
+- IsCorrect: boolean
 
 ### TopScore ###
 #### Fält ####
-#### Metoder ####
+- Score: int
+- Name: string
 
 ### ErrorHandling ###
 #### Metoder ####
