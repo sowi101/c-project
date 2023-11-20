@@ -26,8 +26,10 @@ Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med l
 #### Metoder ####
 
 ### ErrorHandling ###
-#### Fält ####
 #### Metoder ####
+- TextErrorCheck(string, string, int) : string
+- OptionErrorCheck(string, int) : int
+- YesOrNoErrorCheck(string, string) : string
 
 
 ## Om repositoriet
