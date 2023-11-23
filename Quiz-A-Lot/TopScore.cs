@@ -8,6 +8,7 @@ namespace Quiz_A_Lot
 {
     internal class TopScore
     {
+        // Field / Properties
         public int Score { get; set; }
         public string? Name { get; set; }
     }

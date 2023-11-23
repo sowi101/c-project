@@ -18,72 +18,71 @@ namespace Quiz_A_Lot
         // Constructor
         public QuizApp()
         {
+            // Checks if JSON file exists
             if (File.Exists(Directory.GetCurrentDirectory().ToString() + "quizzes.json") == true)
             {
-                // Read data from JSON file
+                // Reads data from JSON file
                 var jsonString = File.ReadAllText(jsonFile);
-                // Convert data from JSON
+                // Converts data from JSON string to objects
                 quizzes = JsonConvert.DeserializeObject<List<Quiz>>(jsonString);
             }
         }
 
-        // Method that writes quizzes to JSON file
+        // Methods
+
+        // Method that writes data to JSON file
         private void WriteToFile()
         {
-            // Converts array of objects to JSON
+            // Converts list of objects to JSON string
             var jsonString = JsonConvert.SerializeObject(quizzes, Newtonsoft.Json.Formatting.Indented);
-            // Write data to JSON file
+            // Writes data to JSON file
             File.WriteAllText(jsonFile, jsonString);
         }
 
         // Method to add a quiz
-        public void AddQuiz(Quiz quiz)
+        public Quiz AddQuiz(Quiz quiz)
         {
             // Adds the object to the array of quizzes
             quizzes?.Add(quiz);
             // Write all quizzes to JSON file
             WriteToFile();
+            return quiz;
         }
 
-        // Method that saves changes
+        // Method to saves changes
         public void ChangeQuiz() { 
+            // Call of method to rewrite JSON file
             WriteToFile();
         }
 
-        // Method that delete a specific quiz
+        // Method to delete a quiz
         public int DeleteQuiz(int index)
         {
-            // Deletes the quiz with the specific index
+            // Deletes the object at the specific index in the list of quizzes
             quizzes?.RemoveAt(index);
-            // Write all remaining quizzes to JSON file
+            // Call of method to rewrite JSON file
             WriteToFile();
-
             return index;
         }
 
-        // Method that return an array of all quizzes
+        // Method to get the list of all quizzes
         public List<Quiz> GetQuizzes()
         {
             return quizzes;
         }
 
+        // Method to print quizzes
         public void PrintQuizzes(List<Quiz> allQuizzes)
         {
             var q = 1;
-
             Console.WriteLine("══════════════════════════════");
-
+            // Loops through all quizzes and prints title of the quiz and amount of questions
             foreach (Quiz quiz in allQuizzes)
             {
-                // Printing name of quiz and amount of questions
-                
-                Console.WriteLine(" [" + q++ + "] " + quiz.Title.ToUpper() + " (" + quiz.questions.Count() + " FRÅGOR)");
-                
+                Console.WriteLine(" [" + q++ + "] " + quiz.Title.ToUpper() + " (" + quiz.questions.Count() + " FRÅGOR)");  
             }
-
             Console.WriteLine("══════════════════════════════");
         }
-
     }
 }
 

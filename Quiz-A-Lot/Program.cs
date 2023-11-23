@@ -18,9 +18,13 @@ internal class Program
         QuizApp quizApp = new();
         ErrorHandling errorHandling = new();
 
+        // Call of method to get all quiz objects
+        var allQuizzes = quizApp.GetQuizzes();
+
         // While loop that runs as long the conditional is set to true
         while (true)
         {
+            // Clearing of console
             Console.Clear();
 
             // Printing of information and menu
@@ -39,32 +43,30 @@ internal class Program
             Console.WriteLine("║ [4] STÄNG APPEN  ║");
             Console.WriteLine("╚══════════════════╝\n");
 
-            // Printing info about the last three added quizzes
-            var allQuizzes = quizApp.GetQuizzes();
-
-            // Save option input for menu to a variable
+            // Saves option input for main menu
             Console.Write("ANGE DITT VAL: ");
             string? option = Console.ReadLine();
 
+            // Call of method to check for input errors
             int validOption = errorHandling.OptionErrorCheck(option, 4);
 
             // Switch for main menu
             switch (validOption)
             {
-                case 1: // Main menu
+                case 1:
+                    // Clearing of console
                     Console.Clear();
 
                     Console.WriteLine("╔═════════════╗");
                     Console.WriteLine("║ TA ETT QUIZ ║");
                     Console.WriteLine("╚═════════════╝\n");
                     
-
-                    // Print information about quizzes
+                    // If statement to check if there are no quizzes
                     if (allQuizzes.Count < 1)
                     {
+                        // Prints error message
                         Console.WriteLine("DET FINNS INGA SPARADE QUIZ.\n");
                         Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
-
                         Console.ReadKey();
 
                         // Code to clear buffer before returning to main menu
@@ -76,77 +78,83 @@ internal class Program
                     }
 
                     Console.WriteLine("VILKET QUIZ VILL DU GENOMFÖRA?\n");
-
+                    // Call of method to print information about quizzes
                     quizApp.PrintQuizzes(allQuizzes);
 
                     Console.Write("\nANGE DITT VAL: ");
-
-                    // Save option input for menu to a variable
+                    // Saves option input for quiz
                     string? quizOption = Console.ReadLine();
-
+                    // Call of method to check for input errors
                     int validQuizOption = errorHandling.OptionErrorCheck(quizOption, allQuizzes.Count);
-
+                    // Saves the object at the index to a variable
                     var chosenQuiz = allQuizzes[validQuizOption - 1];
 
+                    // Clearing of console
                     Console.Clear();
+                    // Prints title of quiz and amount of questions
                     Console.WriteLine("══════════════════════════════");
                     Console.WriteLine(chosenQuiz.Title.ToUpper());
                     Console.WriteLine("══════════════════════════════\n");
-
                     Console.WriteLine("QUIZET INNEHÅLLER " + chosenQuiz.questions.Count() + " FRÅGOR.\n");
 
                     int score = 0;
                     int q = 1;
                     
-
+                    // Loops through all questions in the quiz
                     foreach (var question in chosenQuiz.questions)
                     {
+                        // Prints number and text for question
                         Console.WriteLine("══════════════════════════════");
                         Console.WriteLine("FRÅGA " + q + ": " + question.Text.ToUpper());
                         Console.WriteLine();
 
                         int a = 1;
-
+                        // Loops through all answers for question
                         foreach (var answer in question.answers)
                         {
+                            // Prints number and text for answer
                             Console.WriteLine("[" + a++ + "] " + answer.Text);
                         }
 
                         Console.WriteLine();
                         Console.Write("ANGE DITT VAL: ");
-
+                        // Saves option input for answer
                         string userAnswer = Console.ReadLine();
+                        // Call of method to check for input errors
                         int validUserAnswer = errorHandling.OptionErrorCheck(userAnswer, 3);
 
+                        // If statement that check if chosen answer is correct
                         if (question.answers[validUserAnswer - 1].IsCorrect)
                         {
+                            // Increses the score
                             score++;
                         }
                         Console.WriteLine();
                         q++;
                     }
+
+                    // Prints result
                     Console.WriteLine("══════════════════════════════");
                     Console.WriteLine("DU FICK " + score + " POÄNG!\n");
 
                     Console.Write("ANGE NAMN FÖR TOPPLISTAN: ");
-
+                    // Saves input for name on topscore
                     string userName = Console.ReadLine();
+                    // Call of method to check for input errors
                     string validUserName = errorHandling.TextErrorCheck(userName, "name");
-
-                    Console.WriteLine();
-
+                    // New instance of TopScore
                     TopScore topScore = new TopScore();
+                    // Save name and score to object
                     topScore.Score = score;
                     topScore.Name = validUserName;
-
+                    // Call of method to add topscore to quiz
                     allQuizzes[validQuizOption-1].AddTopScore(topScore);
+                    // Call of method to save changes
                     quizApp.ChangeQuiz();
 
-                    Console.WriteLine("══════════════════════════════");
+                    Console.WriteLine("\n══════════════════════════════");
                     Console.WriteLine("DITT RESULTAT ÄR SPARAT!\n");
-
                     Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
-
                     Console.ReadKey();
 
                     // Code to clear buffer before returning to main menu
@@ -156,9 +164,9 @@ internal class Program
                     }
 
                     break;
-                case 2: // Main menu
+                case 2:
+                    // Clearing of console
                     Console.Clear();
-                    Console.CursorVisible = true;
 
                     Console.WriteLine("╔══════════════╗");
                     Console.WriteLine("║ HANTERA QUIZ ║");
@@ -173,112 +181,128 @@ internal class Program
                     Console.WriteLine("║ [4] HUVUDMENY   ║");
                     Console.WriteLine("╚═════════════════╝\n");
 
-                    // Printing of text for input
                     Console.Write("ANGE DITT VAL: ");
-                    // Saving input for menu variable
+                    // Saves option input for quiz management
                     string? quizManageOption = Console.ReadLine();
-
+                    // Call of method to check for input errors
                     int validQuizManageOption = errorHandling.OptionErrorCheck(quizManageOption, 4);
 
                     // Switch for quiz management
                     switch (validQuizManageOption)
                     {
                         case 1: // Create quiz
+                            //Clearing of console
                             Console.Clear();
-                            Console.CursorVisible = true;
-
                             // New instance of Quiz
                             Quiz quiz = new();
 
                             Console.WriteLine("╔════════════╗");
                             Console.WriteLine("║ SKAPA QUIZ ║");
                             Console.WriteLine("╚════════════╝\n");
-
-
-                            // Printing of text for input
                             Console.WriteLine("══════════════════════════════");
                             Console.Write("TITEL PÅ QUIZ: ");
-                            // Saving of input to variable
+                            // Saves input for quiz title
                             string titleInput = Console.ReadLine();
+                            // Call of method to check for input errors
                             string validTitle = errorHandling.TextErrorCheck(titleInput, "title");
+                            // Save title to object
                             quiz.Title = validTitle;
 
-
-                            // Printing of text for input
                             Console.WriteLine("══════════════════════════════");
                             Console.Write("ANTAL FRÅGOR I QUIZET: ");
-                            // Saving of input to variable
-                            int numberOfQuestionsInt = 0;
+                            // Saves input for amount of questions
                             string numberOfQuestionsStr = Console.ReadLine();
+                            int numberOfQuestionsInt = 0;
+                            // Converts amount from string to int
                             int.TryParse(numberOfQuestionsStr, out numberOfQuestionsInt);
 
+                            // While loop that runs as long as input is smaller than 0 or empty
                             while (numberOfQuestionsInt < 1 || string.IsNullOrEmpty(numberOfQuestionsStr))
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
 
+                                // If statement to check what type of error it is
                                 if (string.IsNullOrEmpty(numberOfQuestionsStr))
                                 {
+                                    // Prints error message
                                     Console.WriteLine("DU HAR INTE ANGETT ANTAL FRÅGOR.\n");
                                 }
                                 else if (!int.TryParse(numberOfQuestionsStr, out numberOfQuestionsInt))
                                 {
+                                    // Prints error message
                                     Console.WriteLine("DU HAR ANGETT INKORREKTA TECKEN.\n");
                                 }
                                 else if (numberOfQuestionsInt < 1)
                                 {
+                                    // Prints error message
                                     Console.WriteLine("QUIZET MÅSTE INNEHÅLLA MINST 1 FRÅGA.\n");
                                     
                                 } 
                                 
+                                // Asking for new input
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Write("ANTAL FRÅGOR I QUIZET: ");
                                 numberOfQuestionsStr = Console.ReadLine();
+                                // Converts amount from string to int
                                 int.TryParse(numberOfQuestionsStr, out numberOfQuestionsInt);
                             }
 
-
+                            // Loop that runs as many times as the amount of questions
                             for (q = 1; q <= numberOfQuestionsInt; q++)
                             {
+                                // New instance of question
                                 Question question = new();
-
-                                // Printing of text for input
                                 Console.WriteLine("\n══════════════════════════════");
                                 Console.Write("FRÅGA " + q + ": ");
 
-                                // Savíng of input to variable
+                                // Saves input for question
                                 string questionText = Console.ReadLine();
+                                // Call of method to check for input errors
                                 string validQuestionText = errorHandling.TextErrorCheck(questionText, "question", q);
+                                // Saves text to object
                                 question.Text = validQuestionText;
 
+                                // Loop that runs three times
                                 for (int a = 1; a < 4; a++)
                                 {
+                                    // New instance of Answer
                                     Answer answer = new();
                                     Console.WriteLine("══════════════════════════════");
                                     Console.Write("SVAR " + a + ": ");
 
+                                    // Saves input for answer
                                     string answertext = Console.ReadLine();
+                                    // Call of method to check for input errors
                                     string validAnswerText = errorHandling.TextErrorCheck(answertext, "answer", a);
+                                    // Saves text to object
                                     answer.Text = validAnswerText;
 
-                                    Console.Write("\nÄR SVARET RÄTT? ANGE J FÖR JA OCH N FÖR NEJ. ");
+                                    Console.Write("\nÄR SVARET RÄTT? TRYCK J FÖR JA OCH N FÖR NEJ. ");
+                                    // Saves input if answer is correct or not
                                     string correctAnswer = Console.ReadLine();
+                                    // Call of method to check for input errors
                                     string validCorrectAnswer = errorHandling.YesOrNoErrorCheck(correctAnswer, "correctAnswer");
 
+                                    // If statement that checks the letter in the input
                                     if (validCorrectAnswer.Equals("J", StringComparison.OrdinalIgnoreCase))
                                     {
+                                        // Sets answer to true
                                         answer.IsCorrect = true;
                                     }
                                     else if (validCorrectAnswer.Equals("N", StringComparison.OrdinalIgnoreCase))
                                     {
+                                        // Sets answer to false
                                         answer.IsCorrect = false;
                                     }
 
+                                    // Call of metod to add answer to question
                                     question.AddAnswer(answer);
-
                                 }
 
+                                // Check that there are at least one true answer
                                 bool correctAnswerExists = question.answers.Any(a => a.IsCorrect == true);
 
+                                // If statement that runs if no correct answers exists
                                 if (!correctAnswerExists)
                                 {
                                     Console.WriteLine("══════════════════════════════");
@@ -288,31 +312,36 @@ internal class Program
                                     Console.WriteLine("VILKET SVAR ÄR KORREKT?");
 
                                     int a1 = 1;
+
+                                    // Loops through all answers for the question
                                     foreach (Answer answer1 in question.answers)
                                     {
-                                        
+                                        // Prints number and text for answer
                                         Console.WriteLine($"[{a1}] {answer1.Text}");
                                         a1++;
                                     }
 
                                     Console.Write("ANGE DITT VAL:");
 
+                                    // Saves input for correct answer
                                     string correctAnswerOption = Console.ReadLine();
+                                    // Call of method to check for input errors
                                     int validCorrectAnswerOption = errorHandling.OptionErrorCheck(correctAnswerOption, 3);
-
+                                    // Change answer to true
                                     question.answers[validCorrectAnswerOption-1].IsCorrect = true;
                                 }
 
+                                // Call of metod to add question to quiz
                                 quiz.AddQuestion(question);
 
                             }
+
+                            // Call of method to add quiz to application
                             quizApp.AddQuiz(quiz);
 
                             Console.WriteLine("══════════════════════════════");
                             Console.WriteLine("QUIZET ÄR SPARAT!\n");
-
                             Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
-
                             Console.ReadKey();
 
                             // Code to clear buffer before returning to main menu
@@ -322,14 +351,16 @@ internal class Program
                             }
                             break;
                         case 2: // Edit quiz
+                            // Clearing of console
                             Console.Clear();
-
                             Console.WriteLine("╔════════════╗");
                             Console.WriteLine("║ ÄNDRA QUIZ ║");
                             Console.WriteLine("╚════════════╝\n");
 
+                            // If statement that checks if there are no quizzes
                             if (allQuizzes.Count < 1)
                             {
+                                // Prints error message
                                 Console.WriteLine("DET FINNS INGA SPARADE QUIZ.\n");
                                 Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
                                 Console.ReadKey();
@@ -342,22 +373,21 @@ internal class Program
                                 break;
                             }
 
-                            // Printing of text for input
                             Console.WriteLine("VILKET QUIZ SKA ÄNDRAS?\n");
-
-                            // Print information about quizzes
+                            // Call of method to print information about quizzes
                             quizApp.PrintQuizzes(allQuizzes);
 
                             Console.Write("\nANGE DITT VAL: ");
-
-                            // Saving input to variable
+                            // Saves option input for quiz to edit
                             string? editQuizOption = Console.ReadLine();
-
+                            // Call of method to check for input errors
                             int validEditQuizOption = errorHandling.OptionErrorCheck(editQuizOption, allQuizzes.Count) - 1;
-
+                            // Save quiz object to new variable
                             var chosenQuizToEdit = allQuizzes[validEditQuizOption];
 
+                            // Clearing of console
                             Console.Clear();
+                            // Prints title of quiz
                             Console.WriteLine("══════════════════════════════");
                             Console.WriteLine("ÄNDRA " + chosenQuizToEdit.Title.ToUpper());
                             Console.WriteLine("══════════════════════════════\n");
@@ -372,8 +402,9 @@ internal class Program
                             Console.WriteLine("╚══════════════════════════╝");
 
                             Console.Write("\nANGE DITT VAL: ");
+                            // Saves option input for type of editing in quiz
                             string editOption = Console.ReadLine();
-
+                            // Call of method to check for input errors
                             int validEditOption = errorHandling.OptionErrorCheck(editOption, 4);
 
                             // Switch for editing of quiz
@@ -384,13 +415,14 @@ internal class Program
                                     Console.WriteLine("║ ÄNDRA TITEL ║");
                                     Console.WriteLine("╚═════════════╝\n");
 
-                                    // Ändra titel
                                     Console.Write("TITEL PÅ QUIZ: ");
+                                    // Saves input for new title
                                     string newTitle = Console.ReadLine();
-
+                                    // Call of method to check for input errors
                                     string validNewTitle = errorHandling.TextErrorCheck(newTitle, "title");
-
+                                    // Saves new title to object
                                     chosenQuizToEdit.Title = validNewTitle;
+                                    // Call of method to save changes
                                     quizApp.ChangeQuiz();
 
                                     Console.WriteLine("\n══════════════════════════════");
@@ -411,13 +443,18 @@ internal class Program
 
                                     Console.WriteLine("VILKEN FRÅGA VILL DU ÄNDRA / RADERA?\n");
                                     q = 1;
+                                    // Loops through all questions in quiz
                                     foreach (var question in chosenQuizToEdit.questions)
                                     {
+                                        Console.WriteLine("══════════════════════════════");
                                         Console.WriteLine("[" + q++ + "] " + question.Text.ToUpper());
+                                        Console.WriteLine("══════════════════════════════");
                                     }
 
                                     Console.Write("\nANGE DITT VAL: ");
+                                    // Saves option input for what question to edit in quiz
                                     string questionToEdit = Console.ReadLine();
+                                    // Call of method to check for input errors
                                     int validQuestionToEdit = errorHandling.OptionErrorCheck(questionToEdit, chosenQuizToEdit.questions.Count);
 
                                     Console.WriteLine("\n╔══════════════════╗");
@@ -426,8 +463,10 @@ internal class Program
                                     Console.WriteLine("║ [3] RADERA FRÅGA ║");
                                     Console.WriteLine("╚══════════════════╝\n");
 
-                                    Console.Write("ANGE DITT VAL: "); 
+                                    Console.Write("ANGE DITT VAL: ");
+                                    // Saves option input for what to edit in question
                                     string manageEditOfQuestion = Console.ReadLine();
+                                    // Call of method to check for input errors
                                     int validManageEditOfQuestion = errorHandling.OptionErrorCheck(manageEditOfQuestion, 3);
 
                                     // Switch for editing of question
@@ -439,10 +478,13 @@ internal class Program
                                             Console.WriteLine("╚════════════╝\n");
 
                                             Console.WriteLine("FRÅGA " + validQuestionToEdit + ": ");
+                                            // Saves input for new text for question
                                             string newQuestion = Console.ReadLine();
+                                            // Call of method to check for input errors
                                             string validNewQuestion = errorHandling.TextErrorCheck(newQuestion, "question", validQuestionToEdit);
-
+                                            // Add new text to object
                                             chosenQuizToEdit.questions[validQuestionToEdit-1].Text = validNewQuestion;
+                                            // Call of method to save changes
                                             quizApp.ChangeQuiz();
 
                                             Console.WriteLine("\n══════════════════════════════");
@@ -463,13 +505,17 @@ internal class Program
 
                                             Console.WriteLine("VILKET SVAR VILL DU ÄNDRA?\n");
                                             int a = 1;
+                                            // Loops through all answers
                                             foreach (var answer in chosenQuizToEdit.questions[validQuestionToEdit-1].answers)
                                             {
+                                                // Prints number and text for answers
                                                 Console.WriteLine("[" + a++ + "] " + answer.Text.ToUpper());
                                             }
 
                                             Console.Write("\nANGE DITT VAL: ");
+                                            // Saves option input for which answer to edit
                                             string answerToEdit = Console.ReadLine();
+                                            // Call of method to check for input errors
                                             int validAnswerToEdit = errorHandling.OptionErrorCheck(answerToEdit, 3);
 
                                             Console.WriteLine("\nVAD VILL DU ÄNDRA PÅ SVARET?\n");
@@ -479,21 +525,26 @@ internal class Program
                                             Console.WriteLine("╚════════════════════╝");
 
                                             Console.Write("\nANGE DITT VAL: ");
+                                            // Saves option input for what to edit in answer
                                             string manageAnswerEdit = Console.ReadLine();
-
+                                            // Call of method to check for input errors
                                             int validMangageAnswerEdit = errorHandling.OptionErrorCheck(manageAnswerEdit, 2);
 
+                                            // If statement that check input of what to edit in answer
                                             if (validMangageAnswerEdit == 1)
                                             {
-                                                
                                                 Console.WriteLine("\n╔═════════════════════╗");
                                                 Console.WriteLine("║ ÄNDRA TEXT FÖR SVAR ║");
                                                 Console.WriteLine("╚═════════════════════╝\n");
 
                                                 Console.Write("SVAR " + validAnswerToEdit + ": ");
+                                                // Saves input for new answer
                                                 string newAnswer = Console.ReadLine();
+                                                // Call of method to check for input errors
                                                 string validNewAnswer = errorHandling.TextErrorCheck(newAnswer, "answer", validAnswerToEdit);
+                                                // Saves input to object
                                                 chosenQuizToEdit.questions[validQuestionToEdit - 1].answers[validAnswerToEdit - 1].Text = validNewAnswer;
+                                                // Call of method to save changes
                                                 quizApp.ChangeQuiz();
 
                                                 Console.WriteLine("\n══════════════════════════════");
@@ -508,22 +559,26 @@ internal class Program
                                                 }
                                             }
                                             else if (validMangageAnswerEdit == 2)
-                                            {
-                                                
+                                            {  
                                                 Console.WriteLine("\n╔════════════════╗");
                                                 Console.WriteLine("║ ÄNDRA RÄTT/FEL ║");
                                                 Console.WriteLine("╚════════════════╝\n");
 
-                                                Console.Write("ÄR SVARET RÄTT? TRYCK J FÖR JA OCH N FÖR NEJ.");
+                                                Console.Write("ÄR SVARET RÄTT? TRYCK J FÖR JA OCH N FÖR NEJ. ");
 
+                                                // Saves input for correction of answer
                                                 string newAnswerCorrect = Console.ReadLine();
+                                                // Call of method to check for input errors
                                                 string validNewAnswerCorrect = errorHandling.YesOrNoErrorCheck(newAnswerCorrect, "correctAnswer");
 
+                                                // If statement that check if input contains the letter J or N
                                                 if (validNewAnswerCorrect.Equals("J", StringComparison.OrdinalIgnoreCase))
                                                 {
+                                                    // Set answer to true
                                                     chosenQuizToEdit.questions[validQuestionToEdit - 1].answers[validAnswerToEdit - 1].IsCorrect = true;
-
+                                                    // Call of method to save changes
                                                     quizApp.ChangeQuiz();
+
                                                     Console.WriteLine("\n══════════════════════════════");
                                                     Console.WriteLine("SVAR " + validAnswerToEdit + "PÅ FRÅGA " + validQuestionToEdit + " ÄNDRAD!\n");
                                                     Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
@@ -537,10 +592,13 @@ internal class Program
                                                 }
                                                 else if (validNewAnswerCorrect.Equals("N", StringComparison.OrdinalIgnoreCase))
                                                 {
+                                                    // Set answer to false
                                                     chosenQuizToEdit.questions[validQuestionToEdit - 1].answers[validAnswerToEdit - 1].IsCorrect = false;
 
+                                                    // Check if there is at least one correct answer
                                                     bool correctAnswerAfterEditExists = chosenQuizToEdit.questions[validQuestionToEdit - 1].answers.Any(a => a.IsCorrect == true);
 
+                                                    // If statement that runs if no correct answers exists
                                                     if (!correctAnswerAfterEditExists)
                                                     {
                                                         Console.ForegroundColor = ConsoleColor.Red;
@@ -548,23 +606,27 @@ internal class Program
                                                         Console.ForegroundColor = ConsoleColor.White;
                                                         Console.WriteLine("\nVILKEN AV SVAREN ÄR KORREKT?");
                                                         int anum = 1;
+                                                        // Loops through all answers
                                                         foreach (Answer answer1 in chosenQuizToEdit.questions[validQuestionToEdit - 1].answers)
                                                         {
-                                                            
+                                                            // Prints number and text for answer
                                                             Console.WriteLine($"{anum}. {answer1.Text.ToUpper()}");
                                                             anum++;
                                                         }
 
                                                         Console.Write("\nANGE DITT VAL: ");
-
+                                                        // Saves input for correct answer
                                                         string correctAnswerOption = Console.ReadLine();
+                                                        // Call of method to check for input errors
                                                         int validCorrectAnswerOption = errorHandling.OptionErrorCheck(correctAnswerOption, 3);
-
+                                                        // Set answer to true
                                                         chosenQuizToEdit.questions[validQuestionToEdit - 1].answers[validCorrectAnswerOption - 1].IsCorrect = true;
                                                     }
 
+                                                    // Call of method to save changes
                                                     quizApp.ChangeQuiz();
-                                                    Console.WriteLine("\n══════════════════════════════");
+
+                                                    Console.WriteLine("══════════════════════════════");
                                                     Console.WriteLine("SVAR PÅ FRÅGA " + validQuestionToEdit + " ÄNDRAD!\n");
                                                     Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
                                                     Console.ReadKey();
@@ -578,21 +640,25 @@ internal class Program
                                             }
 
                                             break;
-                                        case 3:
-                                            
+                                        case 3: // Delete question
                                             Console.WriteLine("\n╔══════════════╗");
                                             Console.WriteLine("║ RADERA FRÅGA ║");
                                             Console.WriteLine("╚══════════════╝\n");
 
-                                            Console.Write("ÄR DU SÄKER PÅ ATT DU VILL RADERA FRÅGA " + validQuestionToEdit + "? TRYCK J FÖR JA OCH N FÖR NEJ.");
+                                            Console.Write("ÄR DU SÄKER PÅ ATT DU VILL RADERA FRÅGA " + validQuestionToEdit + "? TRYCK J FÖR JA OCH N FÖR NEJ. ");
+                                            // Saves input for control question to delete question
                                             string controlAnswerDeleteQuestion = Console.ReadLine();
-
+                                            // Call of method to check for input errors
                                             string validControlAnswerQuestion = errorHandling.YesOrNoErrorCheck(controlAnswerDeleteQuestion, "controlAnswer");
 
+                                            // If statement that check if input contains the letter J or N
                                             if (validControlAnswerQuestion.Equals("J", StringComparison.OrdinalIgnoreCase))
                                             {
+                                                // Call of method to delete question
                                                 chosenQuizToEdit.DeleteQuestion(validQuestionToEdit - 1);
+                                                // Call of method to save changes
                                                 quizApp.ChangeQuiz();
+
                                                 Console.WriteLine("\n══════════════════════════════");
                                                 Console.WriteLine("FRÅGA " + validQuestionToEdit + " ÄR RADERAD!\n");
                                                 Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
@@ -627,16 +693,20 @@ internal class Program
                                     Console.WriteLine("║ RADERA TOPPLISTA ║");
                                     Console.WriteLine("╚══════════════════╝\n");
 
-                                    // Control question
                                     Console.Write("ÄR DU SÄKER PÅ ATT DU VILL RADERA TOPPLISTAN FÖR " + chosenQuizToEdit.Title.ToUpper() + "? TRYCK J FÖR JA OCH N FÖR NEJ. ");
+                                    // Saves input for control question to delete topscores
                                     string controlAnswerDeleteTopScore = Console.ReadLine();
-
+                                    // Call of method to check for input errors
                                     string validControlAnswerTopScore = errorHandling.YesOrNoErrorCheck(controlAnswerDeleteTopScore, "controlAnswer");
 
+                                    // If statement that check if input contains the letter J or N
                                     if (validControlAnswerTopScore.Equals("J", StringComparison.OrdinalIgnoreCase))
                                     {
+                                        // Call of method to delete topscores
                                         chosenQuizToEdit.DeleteTopScores();
+                                        // Call of method to save changes
                                         quizApp.ChangeQuiz();
+
                                         Console.WriteLine("\n══════════════════════════════");
                                         Console.WriteLine("TOPPLISTA RADERAD!\n");
                                         Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
@@ -666,36 +736,37 @@ internal class Program
                                     break;
                             }
                             break;
-
-                        // Delete quiz
-                        case 3: // Manage quiz
+                        case 3: // Delete quiz
+                            // Clearing of console
                             Console.Clear();
                             Console.WriteLine("╔═════════════╗");
                             Console.WriteLine("║ RADERA QUIZ ║");
                             Console.WriteLine("╚═════════════╝\n");
 
-                            // Printing of text for input
                             Console.WriteLine("VILKET QUIZ SKA RADERAS?\n");
 
-                            // Print information about quizzes
+                            // Call of method to print information about quizzes
                             quizApp.PrintQuizzes(allQuizzes);
 
-                            // Printing of text for input
                             Console.Write("\nANGE DITT VAL: ");
-                            // Saving input to variable
+                            // Saves option for what quiz to delete
                             string removeQuizOption = Console.ReadLine();
-
+                            // Call of method to check for input errors
                             int validRemoveQuizOption = errorHandling.OptionErrorCheck(removeQuizOption, allQuizzes.Count);
 
-                            // Control question
+                            
                             Console.Write("\nÄR DU SÄKER PÅ ATT DU VILL RADERA " + allQuizzes[validRemoveQuizOption - 1].Title.ToUpper() + "? TRYCK J FÖR JA OCH N FÖR NEJ. ");
+                            // Saves input for control question to delete quiz
                             string controlAnswerDeleteQuiz = Console.ReadLine();
-
+                            // Call of method to check for input errors
                             string validControlAnswerQuiz = errorHandling.YesOrNoErrorCheck(controlAnswerDeleteQuiz, "controlAnswer");
 
+                            // If statement that check if input contains the letter J or N
                             if (validControlAnswerQuiz.Equals("J", StringComparison.OrdinalIgnoreCase))
                             {
+                                // Call of method to delete quiz
                                 quizApp.DeleteQuiz(validRemoveQuizOption-1);
+
                                 Console.WriteLine("\n══════════════════════════════");
                                 Console.WriteLine("QUIZET ÄR RADERAD!\n");
                                 Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENYN.");
@@ -726,11 +797,13 @@ internal class Program
                     }
                     break;
                 case 3: // Topscores
+                    // Clearing of console
                     Console.Clear();
                     Console.WriteLine("╔════════════╗");
                     Console.WriteLine("║ TOPPLISTOR ║");
                     Console.WriteLine("╚════════════╝\n");
 
+                    // If statement that check if there are no quizzes
                     if (allQuizzes.Count < 1)
                     {
                         Console.WriteLine("DET FINNS INGA SPARADE QUIZ.\n");
@@ -738,8 +811,10 @@ internal class Program
 
                     Console.WriteLine("TRYCK PÅ VALFRI TANGENT FÖR ATT ÅTERVÄNDA TILL HUVUDMENY.\n");
 
+                    // Loops through all quizzes
                     foreach (Quiz quiz in allQuizzes)
                     {
+                        // Prints topscores for quiz
                         quiz.PrintTopScores(quiz);
                     }
 

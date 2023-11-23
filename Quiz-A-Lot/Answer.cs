@@ -8,6 +8,7 @@ namespace Quiz_A_Lot
 {
     internal class Answer
     {
+        // Fields / Properties
         public string? Text { get; set; }
         public bool IsCorrect { get; set; }
     }

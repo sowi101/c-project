@@ -8,69 +8,64 @@ namespace Quiz_A_Lot
 {
     internal class Quiz
     {
-        //Fields
+        //Fields / Properties
         public string? Title { get; set; }
         public List<Question> questions = new();
         public List<TopScore> topScores = new();
 
+        // Methods
 
         // Method to add a question
         public Question AddQuestion(Question question)
         {
-            // Adds the object to the array of questions
+            // Adds the object to the list of questions
             questions.Add(question);
             return question;
         }
 
-        // Method that delete a specific question
+        // Method to delete a question
         public int DeleteQuestion(int index)
         {
-            // Deletes the question with the specific index
+            // Deletes the object at the specific index in the list of questions
             questions.RemoveAt(index);
-            return index;
-        }
-
-        public int EditQuestion(Question editedQuestion, int index)
-        {
-            questions[index] = editedQuestion;
-
             return index;
         }
 
         // Method to add a top score
         public TopScore AddTopScore(TopScore topscore)
         {
-            // Adds the object to the array of topscores
+            // Adds the object to the list of topscores
             topScores.Add(topscore);
             return topscore;
         }
 
-        // Method that delete the topscores for a quiz
+        // Method that delete the topscores
         public void DeleteTopScores()
         {
-            // Deletes the topscore with the specific index
+            // Clears all topscore in the list
             topScores.Clear();
         }
 
+        // Method to print topscores
         public void PrintTopScores(Quiz quiz)
         {
+            // Prints title of quiz
             Console.WriteLine("══════════════════════════════");
             Console.WriteLine(quiz.Title?.ToUpper());
             Console.WriteLine("══════════════════════════════");
 
-
-            // Print information about quizzes
+            // Prints error message if there is no topscore for the quiz
             if (quiz.topScores.Count < 1)
             {
                 Console.WriteLine("Inga sparade resultat.");
             }
 
+            // Sorting of topscore objects, highest to lowest score
             quiz.topScores.Sort((ts1, ts2) => ts2.Score.CompareTo(ts1.Score));
 
+            // Loops through list of topscores and print name and score
             foreach (TopScore topScore in quiz.topScores)
             {
-
-                // Printing name of quiz and amount of questions
                 Console.WriteLine(topScore.Name + " " + topScore.Score + " poäng");
             }
             Console.WriteLine("══════════════════════════════\n");
