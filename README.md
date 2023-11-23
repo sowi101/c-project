@@ -25,7 +25,6 @@ Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med l
 - topScores: List<TopScore>
 #### Metoder ####
 - AddQuestion tar ett Question-objekt som argument och returnerar även objektet. Metoden har till uppgift att lägga till fråga i listan för frågor.
-- EditQuestion tar ett Question-objekt och en int som argument och returnerar en int. Metoden har till uppgift att byta ut det ändrade objektet i listan för frågor.
 - DeleteQuestion tar en int som argument och returnerar en int. Metoden har till uppgift att ta bort specifikt objekt från listan för frågor.
 - AddTopScore tar ett TopScore-objekt som argument och returnerar även objektet. Metoden har till uppgift att lägga till resultat i listan för topplistan. 
 - DeleteTopScores tar inga argument och returnerar inget. Metoden har till uppgift att nollställa listan för topplistan.
@@ -37,8 +36,6 @@ Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med l
 - answers: List<Answers>
 #### Metoder ####
 - AddAnswer tar ett Answer-objekt som argument och returnerar även objektet. Metoden har till uppgift att lägga till svar i listan för svar.
-- EditAnswer tar ett Answer-objekt och en int som argument och returnerar en int. Metoden har till uppgift att byta ut det ändrade objektet i listan för svar.
-- DeleteAnswer tar en int som argument och returnerar en int. Metoden har till uppgift att ta bort specifikt objekt från listan för svar.
 
 ### Answer ###
 #### Fält ####
