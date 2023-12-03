@@ -1,4 +1,11 @@
-﻿using System.Runtime.InteropServices;
+﻿/* 
+ * The program is made by Sofia Widholm
+ * Projekt, Programmering i C#.NET
+ * Webbutvecklingsprogrammet, Mittuniversitetet
+ * Last update: 2023-12-03
+*/
+
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace Quiz_A_Lot
@@ -8,7 +15,7 @@ namespace Quiz_A_Lot
         // Methods
 
         // Method to ensure the input is not empty
-        public string TextErrorCheck(string textInput, string typeOfText, [Optional] int num) 
+        public static string TextErrorCheck(string textInput, string typeOfText, [Optional] int num) 
         {
             // While loop that runs as long as the input is empty
             while (string.IsNullOrWhiteSpace(textInput))
@@ -57,7 +64,7 @@ namespace Quiz_A_Lot
         }
 
         // Method to ensure that input is not empty and option in input exists
-        public int OptionErrorCheck(string option, int amount)
+        public static int OptionErrorCheck(string option, int amount)
         {
             // Defines format for input
             Regex quizOptionRegex = new Regex(@"^1$");
@@ -98,7 +105,7 @@ namespace Quiz_A_Lot
         }
 
         // Method to ensure that input is not empty and input contain one of two specific characters
-        public string YesOrNoErrorCheck(string inputCharacter, string typeOfUse)
+        public static string YesOrNoErrorCheck(string inputCharacter, string typeOfUse)
         {
             // Defines format for input
             Regex YesOrNoOptionRegex = new(@"^[JjNn]{1}$");

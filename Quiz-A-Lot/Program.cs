@@ -2,9 +2,9 @@
 
 /* 
  * The program is made by Sofia Widholm
- * Projekt, Programmering i C#
+ * Projekt, Programmering i C#.NET
  * Webbutvecklingsprogrammet, Mittuniversitetet
- * Last update: 2023-11-15
+ * Last update: 2023-12-03
 */
 
 using Quiz_A_Lot;
@@ -16,7 +16,6 @@ internal class Program
     {
         // New instance of QuizApp and ErrorHandling
         QuizApp quizApp = new();
-        ErrorHandling errorHandling = new();
 
         // Call of method to get all quiz objects
         var allQuizzes = quizApp.GetQuizzes();
@@ -26,6 +25,7 @@ internal class Program
         {
             // Clearing of console
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
 
             // Printing of information and menu
             Console.WriteLine("╔═══════════════════════════╗");
@@ -48,7 +48,7 @@ internal class Program
             string? option = Console.ReadLine();
 
             // Call of method to check for input errors
-            int validOption = errorHandling.OptionErrorCheck(option, 4);
+            int validOption = ErrorHandling.OptionErrorCheck(option, 4);
 
             // Switch for main menu
             switch (validOption)
@@ -56,6 +56,7 @@ internal class Program
                 case 1:
                     // Clearing of console
                     Console.Clear();
+                    Console.WriteLine("\x1b[3J");
 
                     Console.WriteLine("╔═════════════╗");
                     Console.WriteLine("║ TA ETT QUIZ ║");
@@ -85,12 +86,13 @@ internal class Program
                     // Saves option input for quiz
                     string? quizOption = Console.ReadLine();
                     // Call of method to check for input errors
-                    int validQuizOption = errorHandling.OptionErrorCheck(quizOption, allQuizzes.Count);
+                    int validQuizOption = ErrorHandling.OptionErrorCheck(quizOption, allQuizzes.Count);
                     // Saves the object at the index to a variable
                     var chosenQuiz = allQuizzes[validQuizOption - 1];
 
                     // Clearing of console
                     Console.Clear();
+                    Console.WriteLine("\x1b[3J");
                     // Prints title of quiz and amount of questions
                     Console.WriteLine("══════════════════════════════");
                     Console.WriteLine(chosenQuiz.Title.ToUpper());
@@ -121,7 +123,7 @@ internal class Program
                         // Saves option input for answer
                         string userAnswer = Console.ReadLine();
                         // Call of method to check for input errors
-                        int validUserAnswer = errorHandling.OptionErrorCheck(userAnswer, 3);
+                        int validUserAnswer = ErrorHandling.OptionErrorCheck(userAnswer, 3);
 
                         // If statement that check if chosen answer is correct
                         if (question.answers[validUserAnswer - 1].IsCorrect)
@@ -141,7 +143,7 @@ internal class Program
                     // Saves input for name on topscore
                     string userName = Console.ReadLine();
                     // Call of method to check for input errors
-                    string validUserName = errorHandling.TextErrorCheck(userName, "name");
+                    string validUserName = ErrorHandling.TextErrorCheck(userName, "name");
                     // New instance of TopScore
                     TopScore topScore = new TopScore();
                     // Save name and score to object
@@ -167,6 +169,7 @@ internal class Program
                 case 2:
                     // Clearing of console
                     Console.Clear();
+                    Console.WriteLine("\x1b[3J");
 
                     Console.WriteLine("╔══════════════╗");
                     Console.WriteLine("║ HANTERA QUIZ ║");
@@ -185,7 +188,7 @@ internal class Program
                     // Saves option input for quiz management
                     string? quizManageOption = Console.ReadLine();
                     // Call of method to check for input errors
-                    int validQuizManageOption = errorHandling.OptionErrorCheck(quizManageOption, 4);
+                    int validQuizManageOption = ErrorHandling.OptionErrorCheck(quizManageOption, 4);
 
                     // Switch for quiz management
                     switch (validQuizManageOption)
@@ -193,6 +196,7 @@ internal class Program
                         case 1: // Create quiz
                             //Clearing of console
                             Console.Clear();
+                            Console.WriteLine("\x1b[3J");
                             // New instance of Quiz
                             Quiz quiz = new();
 
@@ -204,7 +208,7 @@ internal class Program
                             // Saves input for quiz title
                             string titleInput = Console.ReadLine();
                             // Call of method to check for input errors
-                            string validTitle = errorHandling.TextErrorCheck(titleInput, "title");
+                            string validTitle = ErrorHandling.TextErrorCheck(titleInput, "title");
                             // Save title to object
                             quiz.Title = validTitle;
 
@@ -258,7 +262,7 @@ internal class Program
                                 // Saves input for question
                                 string questionText = Console.ReadLine();
                                 // Call of method to check for input errors
-                                string validQuestionText = errorHandling.TextErrorCheck(questionText, "question", q);
+                                string validQuestionText = ErrorHandling.TextErrorCheck(questionText, "question", q);
                                 // Saves text to object
                                 question.Text = validQuestionText;
 
@@ -273,7 +277,7 @@ internal class Program
                                     // Saves input for answer
                                     string answertext = Console.ReadLine();
                                     // Call of method to check for input errors
-                                    string validAnswerText = errorHandling.TextErrorCheck(answertext, "answer", a);
+                                    string validAnswerText = ErrorHandling.TextErrorCheck(answertext, "answer", a);
                                     // Saves text to object
                                     answer.Text = validAnswerText;
 
@@ -281,7 +285,7 @@ internal class Program
                                     // Saves input if answer is correct or not
                                     string correctAnswer = Console.ReadLine();
                                     // Call of method to check for input errors
-                                    string validCorrectAnswer = errorHandling.YesOrNoErrorCheck(correctAnswer, "correctAnswer");
+                                    string validCorrectAnswer = ErrorHandling.YesOrNoErrorCheck(correctAnswer, "correctAnswer");
 
                                     // If statement that checks the letter in the input
                                     if (validCorrectAnswer.Equals("J", StringComparison.OrdinalIgnoreCase))
@@ -321,12 +325,12 @@ internal class Program
                                         a1++;
                                     }
 
-                                    Console.Write("ANGE DITT VAL:");
+                                    Console.Write("\nANGE DITT VAL: ");
 
                                     // Saves input for correct answer
                                     string correctAnswerOption = Console.ReadLine();
                                     // Call of method to check for input errors
-                                    int validCorrectAnswerOption = errorHandling.OptionErrorCheck(correctAnswerOption, 3);
+                                    int validCorrectAnswerOption = ErrorHandling.OptionErrorCheck(correctAnswerOption, 3);
                                     // Change answer to true
                                     question.answers[validCorrectAnswerOption-1].IsCorrect = true;
                                 }
@@ -353,6 +357,7 @@ internal class Program
                         case 2: // Edit quiz
                             // Clearing of console
                             Console.Clear();
+                            Console.WriteLine("\x1b[3J");
                             Console.WriteLine("╔════════════╗");
                             Console.WriteLine("║ ÄNDRA QUIZ ║");
                             Console.WriteLine("╚════════════╝\n");
@@ -381,12 +386,13 @@ internal class Program
                             // Saves option input for quiz to edit
                             string? editQuizOption = Console.ReadLine();
                             // Call of method to check for input errors
-                            int validEditQuizOption = errorHandling.OptionErrorCheck(editQuizOption, allQuizzes.Count) - 1;
+                            int validEditQuizOption = ErrorHandling.OptionErrorCheck(editQuizOption, allQuizzes.Count) - 1;
                             // Save quiz object to new variable
                             var chosenQuizToEdit = allQuizzes[validEditQuizOption];
 
                             // Clearing of console
                             Console.Clear();
+                            Console.WriteLine("\x1b[3J");
                             // Prints title of quiz
                             Console.WriteLine("══════════════════════════════");
                             Console.WriteLine("ÄNDRA " + chosenQuizToEdit.Title.ToUpper());
@@ -405,7 +411,7 @@ internal class Program
                             // Saves option input for type of editing in quiz
                             string editOption = Console.ReadLine();
                             // Call of method to check for input errors
-                            int validEditOption = errorHandling.OptionErrorCheck(editOption, 4);
+                            int validEditOption = ErrorHandling.OptionErrorCheck(editOption, 4);
 
                             // Switch for editing of quiz
                             switch (validEditOption)
@@ -419,7 +425,7 @@ internal class Program
                                     // Saves input for new title
                                     string newTitle = Console.ReadLine();
                                     // Call of method to check for input errors
-                                    string validNewTitle = errorHandling.TextErrorCheck(newTitle, "title");
+                                    string validNewTitle = ErrorHandling.TextErrorCheck(newTitle, "title");
                                     // Saves new title to object
                                     chosenQuizToEdit.Title = validNewTitle;
                                     // Call of method to save changes
@@ -455,7 +461,7 @@ internal class Program
                                     // Saves option input for what question to edit in quiz
                                     string questionToEdit = Console.ReadLine();
                                     // Call of method to check for input errors
-                                    int validQuestionToEdit = errorHandling.OptionErrorCheck(questionToEdit, chosenQuizToEdit.questions.Count);
+                                    int validQuestionToEdit = ErrorHandling.OptionErrorCheck(questionToEdit, chosenQuizToEdit.questions.Count);
 
                                     Console.WriteLine("\n╔══════════════════╗");
                                     Console.WriteLine("║ [1] ÄNDRA TEXT   ║");
@@ -467,7 +473,7 @@ internal class Program
                                     // Saves option input for what to edit in question
                                     string manageEditOfQuestion = Console.ReadLine();
                                     // Call of method to check for input errors
-                                    int validManageEditOfQuestion = errorHandling.OptionErrorCheck(manageEditOfQuestion, 3);
+                                    int validManageEditOfQuestion = ErrorHandling.OptionErrorCheck(manageEditOfQuestion, 3);
 
                                     // Switch for editing of question
                                     switch (validManageEditOfQuestion)
@@ -481,7 +487,7 @@ internal class Program
                                             // Saves input for new text for question
                                             string newQuestion = Console.ReadLine();
                                             // Call of method to check for input errors
-                                            string validNewQuestion = errorHandling.TextErrorCheck(newQuestion, "question", validQuestionToEdit);
+                                            string validNewQuestion = ErrorHandling.TextErrorCheck(newQuestion, "question", validQuestionToEdit);
                                             // Add new text to object
                                             chosenQuizToEdit.questions[validQuestionToEdit-1].Text = validNewQuestion;
                                             // Call of method to save changes
@@ -516,7 +522,7 @@ internal class Program
                                             // Saves option input for which answer to edit
                                             string answerToEdit = Console.ReadLine();
                                             // Call of method to check for input errors
-                                            int validAnswerToEdit = errorHandling.OptionErrorCheck(answerToEdit, 3);
+                                            int validAnswerToEdit = ErrorHandling.OptionErrorCheck(answerToEdit, 3);
 
                                             Console.WriteLine("\nVAD VILL DU ÄNDRA PÅ SVARET?\n");
                                             Console.WriteLine("╔════════════════════╗");
@@ -528,7 +534,7 @@ internal class Program
                                             // Saves option input for what to edit in answer
                                             string manageAnswerEdit = Console.ReadLine();
                                             // Call of method to check for input errors
-                                            int validMangageAnswerEdit = errorHandling.OptionErrorCheck(manageAnswerEdit, 2);
+                                            int validMangageAnswerEdit = ErrorHandling.OptionErrorCheck(manageAnswerEdit, 2);
 
                                             // If statement that check input of what to edit in answer
                                             if (validMangageAnswerEdit == 1)
@@ -541,7 +547,7 @@ internal class Program
                                                 // Saves input for new answer
                                                 string newAnswer = Console.ReadLine();
                                                 // Call of method to check for input errors
-                                                string validNewAnswer = errorHandling.TextErrorCheck(newAnswer, "answer", validAnswerToEdit);
+                                                string validNewAnswer = ErrorHandling.TextErrorCheck(newAnswer, "answer", validAnswerToEdit);
                                                 // Saves input to object
                                                 chosenQuizToEdit.questions[validQuestionToEdit - 1].answers[validAnswerToEdit - 1].Text = validNewAnswer;
                                                 // Call of method to save changes
@@ -569,7 +575,7 @@ internal class Program
                                                 // Saves input for correction of answer
                                                 string newAnswerCorrect = Console.ReadLine();
                                                 // Call of method to check for input errors
-                                                string validNewAnswerCorrect = errorHandling.YesOrNoErrorCheck(newAnswerCorrect, "correctAnswer");
+                                                string validNewAnswerCorrect = ErrorHandling.YesOrNoErrorCheck(newAnswerCorrect, "correctAnswer");
 
                                                 // If statement that check if input contains the letter J or N
                                                 if (validNewAnswerCorrect.Equals("J", StringComparison.OrdinalIgnoreCase))
@@ -618,7 +624,7 @@ internal class Program
                                                         // Saves input for correct answer
                                                         string correctAnswerOption = Console.ReadLine();
                                                         // Call of method to check for input errors
-                                                        int validCorrectAnswerOption = errorHandling.OptionErrorCheck(correctAnswerOption, 3);
+                                                        int validCorrectAnswerOption = ErrorHandling.OptionErrorCheck(correctAnswerOption, 3);
                                                         // Set answer to true
                                                         chosenQuizToEdit.questions[validQuestionToEdit - 1].answers[validCorrectAnswerOption - 1].IsCorrect = true;
                                                     }
@@ -649,7 +655,7 @@ internal class Program
                                             // Saves input for control question to delete question
                                             string controlAnswerDeleteQuestion = Console.ReadLine();
                                             // Call of method to check for input errors
-                                            string validControlAnswerQuestion = errorHandling.YesOrNoErrorCheck(controlAnswerDeleteQuestion, "controlAnswer");
+                                            string validControlAnswerQuestion = ErrorHandling.YesOrNoErrorCheck(controlAnswerDeleteQuestion, "controlAnswer");
 
                                             // If statement that check if input contains the letter J or N
                                             if (validControlAnswerQuestion.Equals("J", StringComparison.OrdinalIgnoreCase))
@@ -697,7 +703,7 @@ internal class Program
                                     // Saves input for control question to delete topscores
                                     string controlAnswerDeleteTopScore = Console.ReadLine();
                                     // Call of method to check for input errors
-                                    string validControlAnswerTopScore = errorHandling.YesOrNoErrorCheck(controlAnswerDeleteTopScore, "controlAnswer");
+                                    string validControlAnswerTopScore = ErrorHandling.YesOrNoErrorCheck(controlAnswerDeleteTopScore, "controlAnswer");
 
                                     // If statement that check if input contains the letter J or N
                                     if (validControlAnswerTopScore.Equals("J", StringComparison.OrdinalIgnoreCase))
@@ -739,6 +745,7 @@ internal class Program
                         case 3: // Delete quiz
                             // Clearing of console
                             Console.Clear();
+                            Console.WriteLine("\x1b[3J");
                             Console.WriteLine("╔═════════════╗");
                             Console.WriteLine("║ RADERA QUIZ ║");
                             Console.WriteLine("╚═════════════╝\n");
@@ -752,14 +759,14 @@ internal class Program
                             // Saves option for what quiz to delete
                             string removeQuizOption = Console.ReadLine();
                             // Call of method to check for input errors
-                            int validRemoveQuizOption = errorHandling.OptionErrorCheck(removeQuizOption, allQuizzes.Count);
+                            int validRemoveQuizOption = ErrorHandling.OptionErrorCheck(removeQuizOption, allQuizzes.Count);
 
                             
                             Console.Write("\nÄR DU SÄKER PÅ ATT DU VILL RADERA " + allQuizzes[validRemoveQuizOption - 1].Title.ToUpper() + "? TRYCK J FÖR JA OCH N FÖR NEJ. ");
                             // Saves input for control question to delete quiz
                             string controlAnswerDeleteQuiz = Console.ReadLine();
                             // Call of method to check for input errors
-                            string validControlAnswerQuiz = errorHandling.YesOrNoErrorCheck(controlAnswerDeleteQuiz, "controlAnswer");
+                            string validControlAnswerQuiz = ErrorHandling.YesOrNoErrorCheck(controlAnswerDeleteQuiz, "controlAnswer");
 
                             // If statement that check if input contains the letter J or N
                             if (validControlAnswerQuiz.Equals("J", StringComparison.OrdinalIgnoreCase))
@@ -799,6 +806,7 @@ internal class Program
                 case 3: // Topscores
                     // Clearing of console
                     Console.Clear();
+                    Console.WriteLine("\x1b[3J");
                     Console.WriteLine("╔════════════╗");
                     Console.WriteLine("║ TOPPLISTOR ║");
                     Console.WriteLine("╚════════════╝\n");
