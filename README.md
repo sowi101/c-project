@@ -1,12 +1,12 @@
 # Projekt i Programmering i C#.NET (DT071G)
 I detta respitory finns en konsolapplikation byggt med C# och .NET som skapats för projektarbetet i kursen Programmering i C#.NET på Mittuniversitetet. 
 Konsolapplikationen är utformad som en quizapp i vilken det finns funktionalitet för skapa, ändra och radera quiz samt genomföra skapade quiz där resultat sparas i topplistor. 
-Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med lagrad data finns under mappen Quiz-A-Lot/bin/Debug.
+Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med lagrad data återfinns under mappen Quiz-A-Lot/bin/Debug.
 
 ## Klasser
 
 ### QuizApp ###
-#### Fält ####
+#### Fält/Egenskaper ####
 - jsonFile: string
 - quizzes: List<Quiz>
 #### Metoder ####
@@ -19,7 +19,7 @@ Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med l
 - PrintQuizzes tar listan med Quiz-objekt som argument. Metoden har till uppgift att skriva ut titlarna för alla quiz.
 
 ### Quiz ###
-#### Fält ####
+#### Fält/Egenskaper ####
 - Title: string
 - questions: List<Questions>
 - topScores: List<TopScore>
@@ -31,19 +31,19 @@ Konsolapplikationen innehåller en programfil och sex klassfiler. JSON-fil med l
 - PrintTopScores tar ett Quiz-objekt som argument. Metoden har till uppgift att skriva ut alla titlar och topplistor för quizen.
 
 ### Question ###
-#### Fält ####
+#### Fält/Egenskaper ####
 - Text: string
 - answers: List<Answers>
 #### Metoder ####
 - AddAnswer tar ett Answer-objekt som argument och returnerar även objektet. Metoden har till uppgift att lägga till svar i listan för svar.
 
 ### Answer ###
-#### Fält ####
+#### Fält/Egenskaper ####
 - Text: string
 - IsCorrect: boolean
 
 ### TopScore ###
-#### Fält ####
+#### Fält/Egenskaper ####
 - Score: int
 - Name: string
 
